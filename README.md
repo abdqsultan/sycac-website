@@ -6,6 +6,7 @@
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php)](https://sycac.org)
 [![Status](https://img.shields.io/badge/Status-Active%20Development-orange)](https://sycac.org)
 [![License](https://img.shields.io/badge/Code-Private-red)](https://sycac.org)
+[![Built From Scratch](https://img.shields.io/badge/Built-100%25%20Custom-brightgreen)](https://sycac.org)
 
 **Website:** [https://sycac.org](https://sycac.org)
 
@@ -24,6 +25,38 @@
 This repository documents the development of the SYCAC public-facing website — a fully custom WordPress implementation built from scratch without any page builder or third-party theme dependency.
 
 يوثّق هذا المستودع تطوير الموقع الإلكتروني الرسمي لـ SYCAC — وهو تطبيق WordPress مخصص بالكامل، مبني من الصفر دون الاعتماد على أي صفحة بناء أو ثيم جاهز.
+
+---
+
+## 100% Custom-Built — No Plugins. No Builders. No Templates.
+
+> This is not a website assembled from off-the-shelf tools.
+> Every single line of code was written by hand, from scratch, tailored exclusively to the client's requirements.
+
+This project makes a deliberate architectural choice that sets it apart from the vast majority of WordPress sites:
+
+**No page builders** — Elementor, Divi, WPBakery, and similar tools were never used. Every layout, section, and component is hand-coded in PHP, CSS, and vanilla JavaScript.
+
+**No functional plugins** — There is no WooCommerce, no ACF (Advanced Custom Fields), no WPML, no Contact Form 7, no Yoast SEO, and no third-party plugin handling any core feature. Every feature — multilingual routing, custom post types, meta boxes, donation widget, newsletter system, job application form, QR code generator — was built in pure code.
+
+**No parent theme** — The theme has zero dependency on any third-party theme framework. It is a fully standalone, self-contained WordPress theme.
+
+**No visual builders or drag-and-drop tools** — The entire codebase is structured, maintainable, handcrafted PHP/CSS/JS with a clean separation of concerns across 60+ files and 22 dedicated modules.
+
+### Why This Matters — Security & Quality
+
+Custom-built systems carry significant security and quality advantages over plugin-heavy WordPress sites:
+
+| Factor | Plugin-heavy sites | This project |
+|---|---|---|
+| Attack surface | Large — every plugin is a potential vulnerability | Minimal — no third-party plugin code |
+| Dependency risk | High — plugins can be abandoned, hacked, or conflict | None — zero plugin dependencies |
+| Performance | Often bloated with unused code | Lean — only what is needed exists |
+| Maintainability | Tied to plugin authors' decisions | Fully owned and controlled |
+| Customization | Limited by plugin constraints | Unlimited — everything is purpose-built |
+| Updates | Risk of breaking changes with every plugin update | Stable — no external update dependencies |
+
+A custom-built site of this scale represents a significantly higher level of engineering investment and delivers a more secure, faster, and more maintainable product than any template or plugin-based alternative.
 
 ---
 
@@ -56,6 +89,145 @@ This repository documents the development of the SYCAC public-facing website —
 ### WordPress Admin — Customizer Sections
 
 ![Admin Customizer](screenshots/screenshot-admin-customizer.png)
+
+---
+
+## Site Structure | بنية الموقع
+
+```
+sycac.org/
+│
+├── Home                          (Dynamic homepage with 12 managed sections)
+│
+├── Programs                      (Archive + Single)
+│   ├── Protection
+│   ├── Supporting Early Recovery
+│   ├── Turkish Response Program
+│   ├── Women's Program
+│   ├── Enhance Civic Spaces
+│   └── Support Peace Processes
+│
+├── Campaigns                     (Archive + Single + Donation sidebar)
+│
+├── News                          (Archive + Single post)
+│   ├── Latest News
+│   └── Research & Reports
+│
+├── Research                      (Archive + Single)
+│
+├── Opportunities
+│   ├── Jobs                      (Archive + Single + 7-Step Application Form)
+│   ├── Tenders                   (Archive + Single)
+│   └── Grants                    (Archive + Single)
+│
+├── About
+│   ├── About Us                  (Mission, Vision, Values, Team)
+│   └── Partners & Donors
+│
+├── Gallery                       (Photo Albums + Video Gallery)
+│
+├── Contact Us                    (AJAX Form + Map + Office Locations)
+│
+└── [All pages available in EN / AR / TR]
+```
+
+---
+
+## Theme Architecture | البنية التقنية للثيم
+
+```
+sycac-theme/
+│
+├── functions.php                 (Core config — 120KB, 3,000+ lines)
+│                                  CPT registration, Customizer API,
+│                                  multilingual helpers, script enqueuing
+│
+├── assets/
+│   ├── css/                      (34 modular stylesheets)
+│   │   ├── base.css
+│   │   ├── header.css
+│   │   ├── footer.css
+│   │   ├── hero.css
+│   │   ├── donate-widget.css
+│   │   └── [29 more modules]
+│   └── js/                       (5 vanilla JS modules)
+│       ├── main.js
+│       ├── donate-widget.js
+│       ├── newsletter.js
+│       ├── job-application.js
+│       └── gallery.js
+│
+├── inc/                          (22 PHP modules)
+│   ├── about-meta.php
+│   ├── album-meta.php
+│   ├── campaign-meta.php
+│   ├── contact-meta.php
+│   ├── email-template.php
+│   ├── globalgiving.php          (GlobalGiving XML API)
+│   ├── grant-meta.php
+│   ├── job-meta.php
+│   ├── location-meta.php
+│   ├── newsletter-generator.php  (Admin campaign builder)
+│   ├── newsletter.php            (Brevo API + reCAPTCHA)
+│   ├── partner-meta.php
+│   ├── post-meta.php
+│   ├── program-meta.php
+│   ├── sitemap.php
+│   ├── slide-meta.php
+│   ├── smtp-settings.php
+│   ├── staff-import.php
+│   ├── staff-meta.php
+│   ├── tender-meta.php
+│   ├── video-meta.php
+│   └── youtube.php               (YouTube API integration)
+│
+├── template-parts/               (16 reusable page sections)
+│   ├── hero.php
+│   ├── about.php
+│   ├── programs.php
+│   ├── campaigns.php
+│   ├── news.php
+│   ├── stories.php
+│   ├── research.php
+│   ├── tenders.php
+│   ├── partners.php
+│   ├── map.php
+│   ├── newsletter.php
+│   ├── donate-widget.php
+│   ├── cta.php
+│   ├── team.php
+│   ├── impact.php
+│   └── cookie-banner.php
+│
+├── vendor/                       (Composer packages)
+│   └── chillerlan/
+│       └── php-qrcode/           (QR Code vCard generator)
+│
+├── Page Templates
+│   ├── index.php                 (Fallback)
+│   ├── single.php                (Default post)
+│   ├── archive.php               (Default archive)
+│   ├── search.php
+│   ├── 404.php
+│   ├── header.php
+│   ├── footer.php
+│   ├── page-about.php
+│   ├── page-contact.php
+│   └── page-gallery.php
+│
+└── CPT Templates (11 types)
+    ├── archive-sycac_campaign.php
+    ├── archive-sycac_grant.php
+    ├── archive-sycac_job.php
+    ├── archive-sycac_program.php
+    ├── archive-sycac_tender.php
+    ├── single-sycac_campaign.php
+    ├── single-sycac_grant.php
+    ├── single-sycac_job.php
+    ├── single-sycac_program.php
+    ├── single-sycac_staff.php
+    └── single-sycac_tender.php
+```
 
 ---
 
